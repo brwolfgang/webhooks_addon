@@ -15,7 +15,6 @@ function saveData(e) {
     var record = browser.storage.sync.set(data);
     record.then(
         function () {
-            showNotification(notificationID, "", "Data saved!", "Your input have been saved.");
             console.log("All data was saved");
         },
         function(error){
@@ -71,10 +70,24 @@ function saveCommand() {
 
     var command = {
         id: String(Date.now()),
-        command: $("#txCommand").val(),
-        description: $("#txCommandDescription").val(),
+        command: $("#txCommand").val().trim(),
+        description: $("#txCommandDescription").val().trim(),
         contextTypes: contextTypes
     };
+
+    if (command.command.length == 0) {
+        alert("Please insert the command");
+        return;
+    }
+    if (command.description.length == 0) {
+        alert("Please insert the description");
+        return;
+    }
+    if (command.contextTypes.length == 0) {
+        alert("Please select at least one context type");
+        return;
+    }
+
     // console.log(command);
     commands.push(command);
     saveData();
