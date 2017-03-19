@@ -24,6 +24,19 @@ label {
     border: 1px solid black;
 }
 
+#tableListCommands {
+    width: 100%;
+
+}
+
 .note {
     font-size: small;
+}
+
+th {
+    text-align: center;
+}
+
+td {
+    text-align: justify;
 }

@@ -1,5 +1,3 @@
-
-
 $("document").ready(function() {
     commands = [];
     restoreData();
@@ -58,7 +56,10 @@ function saveData(e) {
     }
 
     var record = browser.storage.sync.set(data);
-    record.then(null,
+    record.then(
+        function () {
+            console.log("All data was saved");
+        },
         function(error){
             alert("There was an error saving your data");
             console.log(error);
@@ -90,13 +91,27 @@ function putDataOnForm(result) {
 }
 
 function listCommands() {
-    var listCommands = "<ul>";
+    var tableCommands = "<table id=\'tableListCommands\'><tr><th>Command</th><th>Description</th><th>Contexts</th></tr>";
     for (var i = 0; i < commands.length; i++) {
-        listCommands += "<li>" + commands[i].command + " - " + commands[i].description + " - " +  commands[i].contextTypes + " </li>"
+        tableCommands +=
+            "<tr><td>"
+            + commands[i].command +
+            "</td><td>"
+            + commands[i].description +
+            "</td><td>"
+            + commands[i].contextTypes +
+            "</td><td><button value='" + commands[i].id + "' class=\'btnRemoveCommand\'>Delete</button>" +
+            "</td></tr>"
     }
-    listCommands += "</ul>";
+    if (commands.length == 0) {
+        tableCommands += "<tr><td colspan=\'3\' style=\'text-align: center\' \'>Currently there are no commands saved =/</td></tr>";
+    }
+    tableCommands += "</table>";
 
-    $("#divCommandList").html(listCommands);
+    $("#divCommandList").html(tableCommands);
+    $('.btnRemoveCommand').on("click", function (e) {
+        removeCommand(e.target.value);
+    });
 }
 
 function saveCommand() {
@@ -113,6 +128,18 @@ function saveCommand() {
     };
     // console.log(command);
     commands.push(command);
+    saveData();
+    listCommands();
+}
+
+function removeCommand(commandIdToRemove) {
+    var result = confirm("Are you sure?");
+    if (result) {
+        commands = commands.filter(function (command) {
+            return command.id != commandIdToRemove;
+        });
+    }
+
     saveData();
     listCommands();
 }
