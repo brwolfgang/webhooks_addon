@@ -3,88 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <title>Webhooks Options</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="../icons/hook_48.png"/>
-    <link rel="stylesheet" href="options.css">
+    <link rel="stylesheet" href="w3.css">
 </head>
 <body>
-<table id="mainTable">
-    <tr><th><h1>Webhooks Options</h1></th></tr>
-    <tr>
-        <td>
-            <form id="formOptions">
-                <label for="iftt_key">IFTTT Key</label>
-                <input type="password" size="22" id="iftt_key">
-            </form>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <form id="formContextMenu">
-                <fieldset>
-                    <label for="txCommand">IFTTT Command</label>
-                    <input type="text" id="txCommand" maxlength="30" size="30">
-                    <label for="txCommandDescription">Description</label>
-                    <input type="text" id="txCommandDescription" maxlength="100" size="60">
-                    <fieldset id="contextTypes">
-                        <legend>Show this entry for:</legend>
-                        <label>
-                            <input type="checkbox" value="image">Images
-                        </label>
-                        <label>
-                            <input type="checkbox" value="audio">Audios
-                        </label>
-                        <label>
-                            <input type="checkbox" value="video">Videos
-                        </label>
-                        <label>
-                            <input type="checkbox" value="link">Links
-                        </label>
-                        <label>
-                            <input type="checkbox" value="page">Page
-                        </label>
-                        <label>
-                            <input type="checkbox" value="password">Passwords
-                        </label>
-                    </fieldset>
-                </fieldset>
-            </form>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <button type="button" id="btnSaveCommand">Insert</button>
-        </td>
-    </tr>
-    <tr>
-        <td>
+<header class="w3-container w3-blue-grey">
+    <h1>Webhooks Options</h1>
+</header>
+
+<form id="formContextMenu" class="w3-container">
+    <div class="w3-container w3-content">
+        <p class="w3-opacity"><b>IFTTT</b></p>
+        <div class="w3-panel w3-white w3-card-2 w3-display-container">
+            <p>
+                <label class="w3-text-dark-grey w3-validate"><b>IFTTT Maker Key</b></label>
+                <input class="w3-input" type="password" size="22" id="iftt_key" required>
+            </p>
+        </div>
+
+        <p class="w3-opacity"><b>Create Command</b></p>
+        <div class="w3-panel w3-white w3-card-2 w3-display-container">
+            <p>
+                <label class="w3-text-dark-grey w3-validate"><b>IFTTT event</b></label>
+                <input class="w3-input" type="text" id="txCommand" maxlength="30" size="30" required>
+            </p>
+            <p>
+                <label class="w3-text-dark-grey w3-validate"><b>Description</b></label>
+                <input class="w3-input" type="text" id="txCommandDescription" maxlength="100" size="60" required>
+            </p>
+            <div class="w3-container w3-content" id="contextTypes">
+                <p><label class="w3-text-dark-grey w3-tooltip"><b>Show this entry for:
+                    <span class="w3-text w3-text-green">This command will only appear in the context menu when you right-click content of the selected context types.</span>
+                </b></label></p>
+                <p>
+                    <label class="w3-text-dark-grey">
+                        <input class="w3-check" type="checkbox" value="image">Images
+                    </label>
+                    <label>
+                        <input class="w3-check" type="checkbox" value="audio">Audios
+                    </label>
+                    <label>
+                        <input class="w3-check" type="checkbox" value="video">Videos
+                    </label>
+                    <label>
+                        <input class="w3-check" type="checkbox" value="link">Links
+                    </label>
+                    <label>
+                        <input class="w3-check" type="checkbox" value="page">Page
+                    </label>
+                    <label>
+                        <input class="w3-check" type="checkbox" value="password">Passwords
+                    </label>
+                </p>
+            </div>
+            <div class="w3-center">
+                <p>
+                    <button class="w3-button w3-hover-green" type="button" id="btnSaveCommand">Create command</button>
+                </p>
+            </div>
+        </div>
+        <p class="w3-opacity"><b>Command List</b></p>
+        <div class="w3-panel w3-white w3-card-2 w3-display-container">
             <div id="divCommandList"></div>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <button id="btnReloadCommands">Recreate context menu entries</button>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <p class="note">Your data is synced across your devices using <a href="https://www.mozilla.org/firefox/sync/" target="_blank">Firefox Sync</a></p>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <p><a href="#" id="linkShowLicenses" class="note">Licenses</a></p>
+        </div>
+        <div class="w3-center">
+            <p>
+                <button class="w3-button w3-hover-green" type="button" id="btnReloadCommands">Recreate context menu entries</button>
+            </p>
+        </div>
+        <p class="w3-opacity"><b>Notices</b></p>
+        <div class="w3-panel w3-white w3-card-2 w3-display-container">
             <div id="divLicenses">
                 <ul>
-                    <li>This WebExtension is licensed under
-                        <a href="https://choosealicense.com/licenses/gpl-3.0/" target="_blank">GNU General Public License v3.0</a>
+                    <li>This WebExtension was made by <a href="https://github.com/brwolfgang/" target="_blank">Wolfgang Marcos</a> and is licensed under
+                        <a href="https://choosealicense.com/licenses/gpl-3.0/" target="_blank">GNU General Public License v3.0</a>.
                     </li>
                     <li>This WebExtension's icon was created by
                         <a href="http://lorcblog.blogspot.com/" target="_blank">Lorc</a> under the
                         <a href="https://creativecommons.org/licenses/by/3.0/" target="_blank">Creative Commons 3.0</a>.
                         The only changes made were resizes for this WebExtension purposes.
                     </li>
+                    <li>This addon data is synced across your devices using
+                        <a href="https://www.mozilla.org/firefox/sync/" target="_blank">Firefox Sync</a>
+                        under the <a href="https://www.mozilla.org/privacy/" target="_blank">Mozilla Privacy Terms</a>.
+                    </li>
                 </ul>
             </div>
+        </div>
+    </div>
+</form>
+
+<table id="mainTable">
+    <tr>
+        <td>
+
         </td>
     </tr>
 </table>

@@ -39,7 +39,7 @@ function putDataOnForm(result) {
 }
 
 function listCommands() {
-    var tableCommands = "<table id=\'tableListCommands\'><tr><th>Command</th><th>Description</th><th>Contexts</th></tr>";
+    var tableCommands = "<table id=\'tableListCommands\' class='w3-table w3-bordered'><tr><th>Command</th><th>Description</th><th>Contexts</th></tr>";
     for (var i = 0; i < commands.length; i++) {
         tableCommands +=
             "<tr><td>"
@@ -48,13 +48,16 @@ function listCommands() {
             + commands[i].description +
             "</td><td>"
             + commands[i].contextTypes +
-            "</td><td><button value='" + commands[i].id + "' class=\'btnRemoveCommand\'>Delete</button>" +
+            "</td><td><button value='" + commands[i].id + "' class=\'btnRemoveCommand w3-button w3-hover-red w3-block\'>Delete</button>" +
             "</td></tr>"
     }
     if (commands.length == 0) {
-        tableCommands += "<tr><td colspan=\'3\' style=\'text-align: center\' \'>Currently there are no commands saved =/</td></tr>";
+        tableCommands = "<div class=\"w3-panel w3-pale-yellow w3-border w3-border-yellow\">" +
+        "<p>You haven\'t created any commands yet, use the form above to create one!</p></div>";
+    } else {
+        tableCommands += "</table>";
     }
-    tableCommands += "</table>";
+
 
     $("#divCommandList").html(tableCommands);
     $('.btnRemoveCommand').on("click", function (e) {
