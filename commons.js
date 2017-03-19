@@ -1,4 +1,5 @@
-var teste = "variável do commons";
+var urlMakerPrefix = "https://maker.ifttt.com/trigger/";
+var urlMakerSufix= "/with/key/";
 
 var buildCommand = function(command, iftt_key, value1, value2) {
     var urlRequest = urlMakerPrefix + command + urlMakerSufix + iftt_key + "?";

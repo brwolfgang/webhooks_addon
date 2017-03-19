@@ -1,36 +1,4 @@
-$("document").ready(function() {
-    commands = [];
-    restoreData(putDataOnForm);
-    $("#iftt_key").change(saveData);
-    $("#btnSaveCommand").click(saveCommand);
-    $("#btnCleanCommands").click(function (e) {
-        var remove = browser.storage.sync.remove("commands");
-        remove.then(
-            function () {
-                alert("All clear");
-                restoreData();
-            }, function (error) {
-                alert("There was an error");
-            }
-        );
-    });
-    $("#btnReloadCommands").click(function (e) {
-        reloadContextMenuEntries();
-    });
-    $("#linkShowLicenses").click(function (e) {
-        var $divLicences = $("#divLicenses");
-        if ($divLicences.css('display') == 'block') {
-            $divLicences.hide();
-        } else {
-            $divLicences.show();
-        }
-    });
-    reloadContextMenuEntries();
-    browser.storage.onChanged.addListener(function (changes) {
-        console.log("Change detected: ");
-        console.log(changes);
-    })
-});
+var commands = [];
 
 function clearEverything() {
     var clear = browser.storage.sync.clear();
@@ -131,6 +99,38 @@ function removeCommand(commandIdToRemove) {
         });
     }
 
-    saveData();
     listCommands();
+    saveData();
 }
+
+$("document").ready(function() {
+    restoreData(putDataOnForm);
+    $("#iftt_key").change(saveData);
+    $("#btnSaveCommand").click(saveCommand);
+    $("#btnCleanCommands").click(function (e) {
+        var remove = browser.storage.sync.remove("commands");
+        remove.then(
+            function () {
+                alert("All clear");
+                restoreData();
+            }, function (error) {
+                alert("There was an error");
+            }
+        );
+    });
+    $("#btnReloadCommands").click(function (e) {
+        reloadContextMenuEntries();
+    });
+    $("#linkShowLicenses").click(function (e) {
+        var $divLicences = $("#divLicenses");
+        if ($divLicences.css('display') == 'block') {
+            $divLicences.hide();
+        } else {
+            $divLicences.show();
+        }
+    });
+    browser.storage.onChanged.addListener(function (changes) {
+        console.log("Change detected: ");
+        console.log(changes);
+    })
+});
