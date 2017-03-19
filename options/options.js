@@ -1,16 +1,5 @@
 var commands = [];
-
-function clearEverything() {
-    var clear = browser.storage.sync.clear();
-    clear.then(
-        function () {
-            console.log("Everything was cleared");
-        },
-        function (error) {
-            console.log("There was an error clearing the storage");
-        }
-    );
-}
+var notificationID = "options_page";
 
 function saveData(e) {
     var data = {
@@ -26,6 +15,7 @@ function saveData(e) {
     var record = browser.storage.sync.set(data);
     record.then(
         function () {
+            showNotification(notificationID, "", "Data saved!", "Your input have been saved.");
             console.log("All data was saved");
         },
         function(error){
@@ -107,17 +97,6 @@ $("document").ready(function() {
     restoreData(putDataOnForm);
     $("#iftt_key").change(saveData);
     $("#btnSaveCommand").click(saveCommand);
-    $("#btnCleanCommands").click(function (e) {
-        var remove = browser.storage.sync.remove("commands");
-        remove.then(
-            function () {
-                alert("All clear");
-                restoreData();
-            }, function (error) {
-                alert("There was an error");
-            }
-        );
-    });
     $("#btnReloadCommands").click(function (e) {
         reloadContextMenuEntries();
     });
