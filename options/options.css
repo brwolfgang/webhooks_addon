@@ -1,0 +1,29 @@
+body {
+    font-family: "Open Sans", serif;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #FBFBFB;
+}
+
+label {
+    font-weight: bold;
+    padding-right: 5px;
+}
+
+#mainTable {
+    width: 100%;
+}
+
+#contextTypes {
+    display: inline-block;
+}
+
+#divLicenses {
+    display: none;
+    border: 1px solid black;
+}
+
+.note {
+    font-size: small;
+}
