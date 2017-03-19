@@ -13,13 +13,13 @@ var buildCommand = function(command, iftt_key, value1, value2) {
     return urlRequest;
 };
 
-var showNotification = function(id, commandName) {
+var showNotification = function (id, commandName, title, message) {
     console.log("Trying to send notification " + commandName);
     var options = {
         "type": "basic",
         "iconUrl": browser.extension.getURL("icons/hook_96.png"),
-        "title": "Command sent!",
-        "message": "The command " + commandName + " was sent to IFTTT.\nClick to dismiss."
+        "title": title,
+        "message": message ? message : "The command " + commandName + " was sent to IFTTT.\nClick to dismiss."
     };
 
     browser.notifications.create(id, options);
@@ -56,11 +56,18 @@ var sendCommand = function (info, tab) {
                     {
                         complete: function (data) {
                             if (data.responseJSON && data.responseJSON.errors.length > 0) {
+                                var errorList = "";
                                 for (i = 0; i < data.responseJSON.errors.length; i++) {
+                                    errorList += data.responseJSON.errors[i].message + "\n";
                                     console.log(data.responseJSON.errors[i].message);
                                 }
+                                showNotification(selectedCommand.id, selectedCommand.description,
+                                    "There was an error!",
+                                    "IFTTT said this about it:\n " + errorList
+                                );
                             } else {
-                                showNotification(selectedCommand.id, selectedCommand.description);
+                                showNotification(selectedCommand.id, selectedCommand.description,
+                                "Command sent!");
                             }
                             console.log(data)
                         }
