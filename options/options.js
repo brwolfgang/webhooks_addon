@@ -48,7 +48,7 @@ function listCommands() {
             + commands[i].description +
             "</td><td>"
             + commands[i].contextTypes +
-            "</td><td><button value='" + commands[i].id + "' class=\'btnRemoveCommand w3-button w3-hover-red w3-block\'>Delete</button>" +
+            "</td><td><button value='" + commands[i].id + "' class=\'btnRemoveCommand w3-button w3-theme-l2 w3-hover-red w3-block\'>Delete</button>" +
             "</td></tr>"
     }
     if (commands.length == 0) {

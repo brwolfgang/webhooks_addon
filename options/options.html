@@ -6,13 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="../icons/hook_48.png"/>
     <link rel="stylesheet" href="w3.css">
+    <style type="text/css">
+        .w3-theme-l5 {color:#000 !important; background-color:#f4f6f9 !important}
+        .w3-theme-l2 {color:#fff !important; background-color:#8ea6c5 !important}
+        .w3-blue-grey {color:#fff !important; background-color:#26364a !important}
+        .w3-text-theme {color:#4c6b94 !important}
+        .w3-hover-theme:hover {color:#fff !important; background-color:#4c6b94 !important}
+    </style>
 </head>
 <body>
 <header class="w3-container w3-blue-grey">
     <h1>Webhooks Options</h1>
 </header>
 
-<form id="formContextMenu" class="w3-container">
+<form id="formContextMenu" class="w3-container w3-theme-l5">
     <div class="w3-container w3-content">
         <p class="w3-opacity"><b>IFTTT</b></p>
         <div class="w3-panel w3-white w3-card-2 w3-display-container">
@@ -34,7 +41,7 @@
             </p>
             <div class="w3-container w3-content" id="contextTypes">
                 <p><label class="w3-text-dark-grey w3-tooltip"><b>Show this entry for:
-                    <span class="w3-text w3-text-green">This command will only appear in the context menu when you right-click content of the selected context types.</span>
+                    <span class="w3-text w3-text-theme">This command will only appear in the context menu when you right-click content of the selected context types.</span>
                 </b></label></p>
                 <p>
                     <label class="w3-text-dark-grey">
@@ -56,7 +63,7 @@
             </div>
             <div class="w3-center">
                 <p>
-                    <button class="w3-button w3-hover-green" type="button" id="btnSaveCommand">Create command</button>
+                    <button class="w3-button w3-theme-l2 w3-hover-theme" type="button" id="btnSaveCommand">Create command</button>
                 </p>
             </div>
         </div>
@@ -66,7 +73,7 @@
         </div>
         <div class="w3-center">
             <p>
-                <button class="w3-button w3-hover-green" type="button" id="btnReloadCommands">Recreate context menu entries</button>
+                <button class="w3-button w3-theme-l2 w3-hover-theme" type="button" id="btnReloadCommands">Recreate context menu entries</button>
             </p>
         </div>
         <p class="w3-opacity"><b>Notices</b></p>
