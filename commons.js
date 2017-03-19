@@ -14,7 +14,6 @@ var buildCommand = function(command, iftt_key, value1, value2) {
 };
 
 var showNotification = function (id, commandName, title, message) {
-    console.log("Trying to send notification " + commandName);
     var options = {
         "type": "basic",
         "iconUrl": browser.extension.getURL("icons/hook_96.png"),
@@ -83,21 +82,24 @@ var sendCommand = function (info, tab) {
 };
 
 var reloadContextMenuEntries = function () {
-    removeContextMenuEntries(createContextMenuEntries);
+    removeContextMenuEntries(function () {
+        restoreData(createContextMenuEntries);
+    });
 };
 
 var createContextMenuEntries = function(result) {
-    var commands = result.commands;
-    for (var i = 0; i < commands.length; i++) {
-        var currentCommand = commands[i];
-        // console.log(currentCommand);
-        chrome.contextMenus.create({
-            id: currentCommand.id,
-            title: currentCommand.description,
-            contexts: currentCommand.contextTypes
-        });
+    if (result && result.commands) {
+        var commands = result.commands;
+        for (var i = 0; i < commands.length; i++) {
+            var currentCommand = commands[i];
+            // console.log(currentCommand);
+            chrome.contextMenus.create({
+                id: currentCommand.id,
+                title: currentCommand.description,
+                contexts: currentCommand.contextTypes
+            });
+        }
     }
-    chrome.contextMenus.onClicked.addListener(sendCommand);
     console.log("Context menu entries created");
 };
 

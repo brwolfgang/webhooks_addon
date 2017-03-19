@@ -1,5 +1,6 @@
 body {
     font-family: "Open Sans", serif;
+    font-size: small;
     width: 50%;
     margin-left: auto;
     margin-right: auto;
@@ -39,4 +40,8 @@ th {
 
 td {
     text-align: justify;
+}
+
+#tableListCommands tr:nth-child(even) {
+    background-color: #dddddd;
 }
