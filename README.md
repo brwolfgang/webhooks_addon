@@ -19,6 +19,5 @@ Currently supported context types:
 * Audios
 * Links
 * Pages
-* Passwords
 
 Made with love by [Wolfgang Marcos](https://github.com/brwolfgang).
