@@ -20,7 +20,7 @@
   },
 
   "background": {
-    "scripts": ["jquery.js", "webhooks_bg.js"]
+    "scripts": ["jquery.js", "commons.js", "webhooks_bg.js"]
   },
 
   "options_ui": {

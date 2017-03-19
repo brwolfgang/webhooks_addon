@@ -1,6 +1,6 @@
 $("document").ready(function() {
     commands = [];
-    restoreData();
+    restoreData(putDataOnForm);
     $("#iftt_key").change(saveData);
     $("#btnSaveCommand").click(saveCommand);
     $("#btnCleanCommands").click(function (e) {
@@ -14,7 +14,7 @@ $("document").ready(function() {
             }
         );
     });
-    $("#btnReloadeCommands").click(function (e) {
+    $("#btnReloadCommands").click(function (e) {
         reloadContextMenuEntries();
     });
     $("#linkShowLicenses").click(function (e) {
@@ -64,15 +64,6 @@ function saveData(e) {
             alert("There was an error saving your data");
             console.log(error);
         });
-}
-
-function restoreData() {
-    var restore = browser.storage.sync.get();
-    restore.then(putDataOnForm,
-        function(error) {
-            alert("There was an error loading your data");
-        }
-    );
 }
 
 function putDataOnForm(result) {
@@ -142,36 +133,4 @@ function removeCommand(commandIdToRemove) {
 
     saveData();
     listCommands();
-}
-
-function reloadContextMenuEntries() {
-    removeContextMenuEntries(createContextMenuEntries);
-}
-
-function createContextMenuEntries() {
-    for (var i = 0; i < commands.length; i++) {
-        var currentCommand = commands[i];
-        // console.log(currentCommand);
-        chrome.contextMenus.create({
-            id: currentCommand.id,
-            title: currentCommand.description,
-            contexts: currentCommand.contextTypes
-        });
-    }
-    console.log("Context menu entries created");
-}
-
-function removeContextMenuEntries(onSuccessCallback) {
-    var removeEntriesPromise = browser.contextMenus.removeAll();
-    removeEntriesPromise.then(
-        function() {
-            console.log("Context menu entries removed");
-            if (onSuccessCallback) {
-                onSuccessCallback();
-            }
-        },
-        function () {
-            console.log("There was an error removing the context menu entries");
-        }
-    );
 }
