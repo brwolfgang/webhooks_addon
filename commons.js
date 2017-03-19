@@ -4,10 +4,10 @@ var urlMakerSufix= "/with/key/";
 var buildCommand = function(command, iftt_key, value1, value2) {
     var urlRequest = urlMakerPrefix + command + urlMakerSufix + iftt_key + "?";
     if (value1) {
-        urlRequest += "value1=" + value1;
+        urlRequest += "value1=" + encodeURIComponent(value1);
     }
     if(value2) {
-        urlRequest += "&value2=" + value2;
+        urlRequest += "&value2=" + encodeURIComponent(value2);
     }
 
     return urlRequest;
