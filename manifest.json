@@ -20,7 +20,7 @@
   },
 
   "background": {
-    "scripts": ["jquery.js", "maker_ifttt.js"]
+    "scripts": ["jquery.js", "webhooks_bg.js"]
   },
 
   "options_ui": {
