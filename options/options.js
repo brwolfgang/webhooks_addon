@@ -113,12 +113,16 @@ function saveCommand() {
     }
 
     if (idCommand != "") {
-        commands = commands.filter(function (command) {
-            return command.id != idCommand;
-        });
+        for (var i = 0; i < commands.length; i++) {
+            if (commands[i].id == idCommand) {
+                commands[i] = command;
+                break;
+            }
+        }
+    } else {
+        commands.push(command);
     }
 
-    commands.push(command);
     form.clear();
     saveData();
     listCommands();
