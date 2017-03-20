@@ -64,8 +64,8 @@ function listCommands() {
             "</td><td>"
             + commands[i].contextTypes +
             "</td><td>" +
-            "<button value='" + commands[i].id + "' class=\'btnEditCommand w3-button w3-theme-l2 w3-hover-theme w3-small\'>Edit</button>" +
-            "<button value='" + commands[i].id + "' class=\'btnRemoveCommand w3-button w3-theme-l2 w3-hover-red w3-small\'>&times;</button>" +
+            "<button value='" + commands[i].id + "' class=\'btnEditCommand w3-button w3-theme-l2 w3-hover-theme w3-small\'><i class=\"material-icons\">edit</i></button>" +
+            "<button value='" + commands[i].id + "' class=\'btnRemoveCommand w3-button w3-theme-l2 w3-hover-red w3-small\'><i class=\"material-icons\">delete</i></button>" +
             "</td></tr>"
     }
     if (commands.length == 0) {
