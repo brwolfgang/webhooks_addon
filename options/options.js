@@ -13,7 +13,7 @@ var form = {
     }
 };
 
-function saveData(e) {
+function saveData(onSucessCallback) {
     var data = {
         "iftt_key": $("#iftt_key").val().trim(),
         "commands": commands
@@ -28,6 +28,9 @@ function saveData(e) {
     record.then(
         function () {
             console.log("All data was saved");
+            if (onSucessCallback) {
+                onSucessCallback();
+            }
         },
         function(error){
             alert("There was an error saving your data");
@@ -124,8 +127,9 @@ function saveCommand() {
     }
 
     form.clear();
-    saveData();
+    saveData(reloadContextMenuEntries);
     listCommands();
+    // reloadContextMenuEntries();
 }
 
 function removeCommand(commandIdToRemove) {
@@ -137,7 +141,7 @@ function removeCommand(commandIdToRemove) {
     }
 
     listCommands();
-    saveData();
+    saveData(reloadContextMenuEntries);
 }
 
 function loadCommandForEdit(idCommand) {
@@ -167,9 +171,6 @@ $("document").ready(function() {
     $("#btnSaveCommand").click(saveCommand);
     $("#btnClearCommand").click(function (e) {
         form.clear();
-    });
-    $("#btnReloadCommands").click(function (e) {
-        reloadContextMenuEntries();
     });
     browser.storage.onChanged.addListener(function (changes) {
         console.log("Change detected: ");

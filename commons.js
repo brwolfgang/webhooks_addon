@@ -24,10 +24,10 @@ var showNotification = function (id, commandName, title, message) {
     browser.notifications.create(id, options);
 };
 
-var restoreData = function(onSuccess) {
+var restoreData = function(onSuccessCallback) {
     var restore = browser.storage.sync.get();
     restore.then(function(result) {
-            onSuccess(result);
+            onSuccessCallback(result);
         },
         function(error) {
             alert("There was an error loading your data");
