@@ -30,7 +30,6 @@
 
   "permissions": [
     "*://*.ifttt.com/*",
-    "*://fonts.googleapis.com/*",
     "contextMenus",
     "storage",
     "notifications"
