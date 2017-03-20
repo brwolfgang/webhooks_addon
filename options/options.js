@@ -1,5 +1,17 @@
 var commands = [];
 var notificationID = "options_page";
+var form = {
+    $inputIdCommand: $("#idCommand"),
+    $inputTxCommand: $("#txCommand"),
+    $inputTxCommandDescription: $("#txCommandDescription"),
+    $clContextTypes: $("#contextTypes").find("input"),
+    clear: function () {
+        this.$inputIdCommand.val("");
+        this.$inputTxCommand.val("");
+        this.$inputTxCommandDescription.val("");
+        this.$clContextTypes.prop("checked", false);
+    }
+};
 
 function saveData(e) {
     var data = {
@@ -39,7 +51,7 @@ function putDataOnForm(result) {
 }
 
 function listCommands() {
-    var tableCommands = "<table id=\'tableListCommands\' class='w3-table w3-bordered'><tr><th>Command</th><th>Description</th><th>Contexts</th></tr>";
+    var tableCommands = "<table id=\'tableListCommands\' class='w3-table w3-bordered'><tr><th>Command</th><th>Description</th><th>Contexts</th><th>Actions</th></tr>";
     for (var i = 0; i < commands.length; i++) {
         tableCommands +=
             "<tr><td>"
@@ -48,7 +60,9 @@ function listCommands() {
             + commands[i].description +
             "</td><td>"
             + commands[i].contextTypes +
-            "</td><td><button value='" + commands[i].id + "' class=\'btnRemoveCommand w3-button w3-theme-l2 w3-hover-red w3-block\'>Delete</button>" +
+            "</td><td>" +
+            "<button value='" + commands[i].id + "' class=\'btnEditCommand w3-button w3-theme-l2 w3-hover-theme w3-small\'>Edit</button>" +
+            "<button value='" + commands[i].id + "' class=\'btnRemoveCommand w3-button w3-theme-l2 w3-hover-red w3-small\'>&times;</button>" +
             "</td></tr>"
     }
     if (commands.length == 0) {
@@ -61,7 +75,12 @@ function listCommands() {
 
     $("#divCommandList").html(tableCommands);
     $('.btnRemoveCommand').on("click", function (e) {
+        e.preventDefault();
         removeCommand(e.target.value);
+    });
+    $('.btnEditCommand').on("click", function (e) {
+        e.preventDefault();
+        loadCommandForEdit(e.target.value);
     });
 }
 
@@ -71,8 +90,10 @@ function saveCommand() {
         contextTypes.push(item.value);
     });
 
+    var idCommand = $("#idCommand").val();
+
     var command = {
-        id: String(Date.now()),
+        id: String(idCommand != "" ? idCommand : Date.now()),
         command: $("#txCommand").val().trim(),
         description: $("#txCommandDescription").val().trim(),
         contextTypes: contextTypes
@@ -91,8 +112,14 @@ function saveCommand() {
         return;
     }
 
-    // console.log(command);
+    if (idCommand != "") {
+        commands = commands.filter(function (command) {
+            return command.id != idCommand;
+        });
+    }
+
     commands.push(command);
+    form.clear();
     saveData();
     listCommands();
 }
@@ -109,20 +136,36 @@ function removeCommand(commandIdToRemove) {
     saveData();
 }
 
+function loadCommandForEdit(idCommand) {
+    form.clear();
+
+    var selectedCommand = commands.filter(function (command) {
+        return command.id == idCommand;
+    });
+
+    if (selectedCommand[0]) {
+        selectedCommand = selectedCommand[0];
+        form.$inputIdCommand.val(selectedCommand.id);
+        form.$inputTxCommand.val(selectedCommand.command);
+        form.$inputTxCommandDescription.val(selectedCommand.description);
+
+        for (var i = 0; i < selectedCommand.contextTypes.length; i++) {
+            var type = selectedCommand.contextTypes[i];
+            var selector =  "input[value='"+ type +"']";
+            $(selector).prop("checked", true);
+        }
+    }
+}
+
 $("document").ready(function() {
     restoreData(putDataOnForm);
     $("#iftt_key").change(saveData);
     $("#btnSaveCommand").click(saveCommand);
+    $("#btnClearCommand").click(function (e) {
+        form.clear();
+    });
     $("#btnReloadCommands").click(function (e) {
         reloadContextMenuEntries();
-    });
-    $("#linkShowLicenses").click(function (e) {
-        var $divLicences = $("#divLicenses");
-        if ($divLicences.css('display') == 'block') {
-            $divLicences.hide();
-        } else {
-            $divLicences.show();
-        }
     });
     browser.storage.onChanged.addListener(function (changes) {
         console.log("Change detected: ");

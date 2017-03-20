@@ -39,6 +39,7 @@
             </header>
             <div class="w3-container">
                 <p>
+                    <input type="hidden" id="idCommand"><br>
                     <label class="w3-text-dark-grey w3-validate"><b>IFTTT event</b></label>
                     <input class="w3-input" type="text" id="txCommand" maxlength="30" size="30" required>
                 </p>
@@ -47,9 +48,11 @@
                     <input class="w3-input" type="text" id="txCommandDescription" maxlength="100" size="60" required>
                 </p>
                 <div class="w3-container w3-content" id="contextTypes">
-                    <p><label class="w3-text-dark-grey w3-tooltip"><b>Show this entry for:
-                        <span class="w3-text w3-text-theme">This command will only appear in the context menu when you right-click content of the selected context types.</span>
-                    </b></label></p>
+                    <p>
+                        <label class="w3-text-dark-grey w3-tooltip"><b>Show this entry for:
+                            <span class="w3-text w3-text-theme">This command will only appear in the context menu when you right-click content of the selected context types.</span></b>
+                        </label>
+                    </p>
                     <p>
                         <label class="w3-text-dark-grey">
                             <input class="w3-check" type="checkbox" value="image">Images
@@ -70,7 +73,8 @@
                 </div>
                 <div class="w3-container w3-center">
                     <p>
-                        <button class="w3-button w3-theme-l2 w3-hover-theme" type="button" id="btnSaveCommand">Create command</button>
+                        <button class="w3-button w3-theme-l2 w3-hover-theme" type="button" id="btnSaveCommand">Save command</button>
+                        <button class="w3-button w3-theme-l2 w3-hover-red" type="button" id="btnClearCommand">Clear form</button>
                     </p>
                 </div>
             </div>
