@@ -86,7 +86,10 @@ var sendCommand = function (info, tab) {
 
 var identifyLinkSource = function (info) {
     var sourceUrl;
-    if (info.srcUrl != "") {
+    if (info.selectionText != "") {
+        // Selected text
+        sourceUrl = info.selectionText;
+    } else if (info.srcUrl != "") {
         // Image/Audio/Video
         sourceUrl = info.srcUrl;
     } else if (info.linkUrl != "") {
