@@ -19,6 +19,14 @@
     "128": "icons/hook_128.png"
   },
 
+  "browser_action": {
+    "browser_style": true,
+    "default_icon": {
+      "16": "icons/hook_24.png",
+      "32": "icons/hook_48.png"
+    }
+  },
+
   "background": {
     "scripts": ["jquery.js", "commons.js", "webhooks_bg.js"]
   },

@@ -121,6 +121,7 @@ var createContextMenuEntries = function(result) {
                 contexts: currentCommand.contextTypes
             });
         }
+        updateBadgeText(commands.length);
     }
     console.log("Context menu entries created");
 };
@@ -138,4 +139,25 @@ var removeContextMenuEntries = function(onSuccessCallback) {
             console.log("There was an error removing the context menu entries");
         }
     );
+};
+
+var openOptionsPage = function () {
+    browser.runtime.openOptionsPage();
+};
+
+var updateBadgeText = function (numberOfCommands) {
+    browser.browserAction.setBadgeText({
+        text: String(numberOfCommands)
+    });
+
+    var title;
+    if (numberOfCommands == 1) {
+        title = "There is 1 webhook waiting to be triggered!";
+    } else {
+        title = "There are " + numberOfCommands + " webhooks waiting to be triggered!";
+    }
+
+    browser.browserAction.setTitle({
+        title: title
+    });
 };
