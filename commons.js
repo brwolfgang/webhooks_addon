@@ -149,6 +149,9 @@ var updateBadgeText = function (numberOfCommands) {
     browser.browserAction.setBadgeText({
         text: String(numberOfCommands)
     });
+    browser.browserAction.setBadgeBackgroundColor({
+        color: "#666"
+    });
 
     var title;
     if (numberOfCommands == 1) {
