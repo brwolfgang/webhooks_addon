@@ -44,7 +44,10 @@ var sendCommand = function (info, tab) {
             for (var i = 0; i < result.commands.length; i++) {
                 selectedCommand = result.commands[i];
                 if (info.menuItemId == selectedCommand.id) {
-                    urlRequest = buildCommand(selectedCommand.command, result.iftt_key, info.srcUrl);
+                    urlRequest = buildCommand(
+                        selectedCommand.command,
+                        result.iftt_key,
+                        identifyLinkSource(info));
                     console.log(urlRequest);
                     break;
                 }
@@ -79,6 +82,22 @@ var sendCommand = function (info, tab) {
             console.log("There was an error retrieving stored commands");
         }
     );
+};
+
+var identifyLinkSource = function (info) {
+    var sourceUrl;
+    if (info.srcUrl != "") {
+        // Image/Audio/Video
+        sourceUrl = info.srcUrl;
+    } else if (info.linkUrl != "") {
+        // Link
+        sourceUrl = info.linkUrl;
+    } else if (info.frameUrl != "") {
+        // Page
+        sourceUrl = info.frameUrl;
+    }
+
+    return sourceUrl;
 };
 
 var reloadContextMenuEntries = function () {
